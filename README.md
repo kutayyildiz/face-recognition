@@ -6,7 +6,7 @@
 
 #### Image Augmentation
 
-- [ ] Random augmentation for landmark detection
+- [x] Random augmentation for landmark detection
 
 #### Layers
 
