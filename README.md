@@ -1,4 +1,5 @@
 # face-recognition
+Face recognition using Keras(tensorflow, python).
 
 ## Contents
 
