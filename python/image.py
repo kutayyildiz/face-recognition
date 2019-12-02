@@ -9,42 +9,6 @@ import tensorflow as tf
 from skimage import transform as skitrans
 
 
-def get_masked(img, landmarks):
-    """Masks the image with landmarks on channel axis
-    so that landmarks can be extracted(pop_coor) from modified image.
-    """
-    landmarks = tf.reshape(landmarks, [-1, 2])
-    updates = tf.range(1, landmarks.shape[0]+1, dtype=tf.int32)
-    landmarks = tf.dtypes.cast(landmarks, tf.int32)
-    mask = tf.scatter_nd(landmarks, updates, tf.shape(img)[:2])
-    mask = tf.expand_dims(mask, -1)
-    masked = tf.concat([img, mask], -1)
-    return masked
-
-def augment_img(img, angle=360, shift_range=[0.2, 0.2], zoom_range=[0.75, 1.25]):
-    """Randomly augments an image.
-
-    Parameters
-    ----------
-        angle : int, optional
-            Random rotation range in degrees.
-        shift_range : tuple(float,float), optional
-            random shift range [width_range, height_range]
-            e.g., (1., 1.) equals to "no shift"
-    zoom_range : tuple(float,float), optional
-        random zoom range(1.0=same) [min_zoom, max_zoom]
-    """
-    # Random rotation
-    img = tf.keras.preprocessing.image.random_rotation(
-        img, angle, row_axis=0, col_axis=1, channel_axis=2)
-    # Random shift
-    img = tf.keras.preprocessing.image.random_shift(
-        img, wrg=shift_range[0], hrg=shift_range[1], row_axis=0, col_axis=1, channel_axis=2)
-    # Random zoom
-    img = tf.keras.preprocessing.image.random_zoom(
-        img, ((0.75, 1.25)), row_axis=0, col_axis=1, channel_axis=2)
-    return img
-
 class ImageAugmentor:
     """Image augmentation with tensorflow(graph compatible)."""
 
@@ -63,7 +27,13 @@ class ImageAugmentor:
     #   scipy:      1410ms
 
     def augment_opencv(self, img, coordinates):
-        """Augments the input image using class parameters."""
+        """Augments the input image using class parameters.
+        
+        Notes
+        -----
+        Modifies coordinates to match with image augmentation.
+
+        """
         img_shape = tf.shape(img)
         img_center = tf.cast(img_shape[:2], tf.float32) / 2.
         translate = tf.random.uniform([2], self.tr[0], self.tr[1]) * tf.cast(img_shape[:2][::-1], tf.float32)
