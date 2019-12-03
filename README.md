@@ -1,5 +1,33 @@
 # face-recognition
+
 Face recognition using Keras(tensorflow, python).
+
+## Demo
+
+##### MobileFacenet training using Arcface loss
+```
+import tensorflow as tf
+
+from python import models, losses, layers
+
+af = losses.ArcFace()
+loss = af.loss
+
+base_model = models.mobile_face_net()
+x = base_model.output
+num_classes = 500
+x = layers.DenseL2(num_classes)(x)
+model = tf.keras.models.Model(base_model.input, x)
+
+optimizer = tf.keras.optimizers.Adam()
+model.compile(optimizer, loss=loss)
+
+# ground truths should be one_hotted
+train_dataset = ...
+model.fit(train_dataset)
+```
+### Margin Loss
+
 
 ## Contents
 
