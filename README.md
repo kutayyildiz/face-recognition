@@ -110,6 +110,8 @@ model.fit(train_dataset)
 | SphereFace                   | W. Liu, Y. Wen, Z. Yu, M. Li, B. Raj, and L. Song, “SphereFace: Deep Hypersphere Embedding for Face Recognition,” arXiv:1704.08063 [cs], Apr. 2017. <http://arxiv.org/abs/1704.08063>                                                      |
 | Bottleneck (layer)           | K. He, X. Zhang, S. Ren, and J. Sun, “Deep Residual Learning for Image Recognition,” arXiv:1512.03385 [cs], Dec. 2015. <http://arxiv.org/abs/1512.03385>                                                                                   |
 | MS-Celeb-1M                  | Y. Guo, L. Zhang, Y. Hu, X. He, and J. Gao, “MS-Celeb-1M: A Dataset and Benchmark for Large-Scale Face Recognition,” arXiv:1607.08221 [cs], Jul. 2016. <http://arxiv.org/abs/1607.08221>                                                   |
+| DisturbLabel                 | arXiv:1605.00055 [cs.CV]
+|
 
 ## Links
 
